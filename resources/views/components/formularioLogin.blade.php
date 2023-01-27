@@ -17,7 +17,7 @@
             <label for="email" class="form-label">Email</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                <input type="email" name="email" class="form-control" placeholder="Digite seu e-mail" required>
+                <input type="email" name="email" class="form-control" placeholder="Digite seu e-mail" value="{{ old('email') }}" required>
             </div>
             @error('email')
                 <div class="form-text text-danger">
