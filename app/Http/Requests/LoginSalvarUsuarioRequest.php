@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ConfirmacaoSenhaRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginAutenticarRequest extends FormRequest
+class LoginSalvarUsuarioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,23 +25,21 @@ class LoginAutenticarRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|exists:usuarios,email',
-            'password' => 'required|min:8'
+            'nome' => 'string|required',
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required|min:8',
+            'confirmacao_senha' => new ConfirmacaoSenhaRule($this->request->get('password'))
         ];
     }
 
-    /**
-     * Define as mensagens em caso de erro.
-     * 
-     * @return array
-     */
     public function messages()
     {
         return [
             'required' => 'O campo :attribute é obrigatório.',
             'email' => 'O campo :attribute deve ser do tipo email.',
             'min' => 'O campo :attribute deve ter no mínimo 8 caracteres.',
-            'exists' => 'Não existe nenhum usuário cadastrado com o email informado.'
+            'unique' => 'Já existe um usuário cadastrado com o email informado.',
+            'string' => 'O campo :attribute deve ser do tipo texto.'
         ];
     }
 }

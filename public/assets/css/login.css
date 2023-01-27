@@ -6,8 +6,12 @@
     filter: brightness(60%);
 }
 
-form {
+form.acesso {
     margin-top: 27vh;
+}
+
+form.cadastro {
+    margin-top: 20vh;
 }
 
 #btn-login {

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginAutenticarRequest;
+use App\Http\Requests\LoginSalvarUsuarioRequest;
+use App\Models\Usuario;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -25,9 +29,33 @@ class LoginController extends Controller
      */
     public function autenticar(LoginAutenticarRequest $request)
     {
-        if(Auth::attempt($request->only('email', 'senha'))) {
-            return redirect('dashboard');
+        try {
+            if(Auth::attempt($request->only('email', 'password'))) {
+                return redirect('dashboard');
+            }
+            return back()->with('erro', 'Usuário ou senha incorretos.');
+        } catch(Exception $e) {
+            return back()->with('erro', 'Houve um erro ao tentar autenticar o usuário, contate o administrador do sistema. Erro: '.$e->getMessage());
         }
-        return back()->with('erro', 'Usuário ou senha incorretos.');
+    }
+
+    /**
+     * Cadastra um novo usuário e efetua o login.
+     * 
+     * @param \App\Http\Requests\LoginSalvarUsuarioRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function salvarUsuario(LoginSalvarUsuarioRequest $request)
+    {
+        try {
+            $dados = $request->only('nome', 'email', 'password');
+            $dados['password'] = Hash::make($dados['password']);
+            Usuario::create($dados);
+            Auth::attempt($request->only('email', 'password'));
+
+            return redirect('dashboard'); 
+        } catch(Exception$e) {
+            return back()->with('erro', 'Houve um erro ao tentar criar o usuário, contate o administrador do sistema. Erro: '.$e->getMessage());
+        }
     }
 }
