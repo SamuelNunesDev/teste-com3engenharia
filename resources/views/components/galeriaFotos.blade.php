@@ -1,5 +1,12 @@
  <div class="gamma-container gamma-loading rounded shadow p-3" id="gamma-container">
-    <h2>{{ $data }}</h2>
+    <div class="row">
+        <div class="col-md-5 col-lg-4 col-xl-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Dia: </span>
+                <input id="data-galeria" type="date" class="form-control"value="{{ $data }}">
+            </div>
+        </div>
+    </div>
     @if(!count($arquivos))
         <div class="alert alert-warning" role="alert">
             <i class="bi bi-exclamation-triangle"></i> &nbsp; Nenhuma foto cadastrada neste dia.

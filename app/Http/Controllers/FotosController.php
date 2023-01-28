@@ -18,12 +18,8 @@ class FotosController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $request->data ?? Carbon::now();
+        $data = $request->data ?? Carbon::now()->format('Y-m-d');
         $arquivos = Arquivo::doDia($data)->get()->filter(fn($arquivo) => Storage::exists($arquivo->caminho));
-        if(!($data instanceof Carbon)) {
-            $data = Carbon::createFromFormat('Y-m-d', $data);
-        }
-        $data = $data->format('d/m/Y');
 
         return view('admin.fotos', compact('arquivos', 'data'));
     }

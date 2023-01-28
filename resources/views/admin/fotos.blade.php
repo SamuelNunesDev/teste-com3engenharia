@@ -79,6 +79,11 @@
             $('#btn-upload-foto').on('click', function(){
                 uploadFiles()
             })
+            
+            $('#data-galeria').on('change', function() {
+                let url = window.location.href.split('?')
+                window.location.href = url.length > 1 ? `${url[0]}?data=${this.value}` : `${window.location.href}?data=${this.value}`
+            })
         })
     </script>
 @endsection
