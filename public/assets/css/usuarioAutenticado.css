@@ -11,13 +11,14 @@
 
     .main {
         padding-left: 15rem!important;
+        padding-top: 6.5rem;
     }
 }
 
 .sidebar {
     position: fixed;
     bottom: 0;
-    top: 6rem;
+    top: 5.8rem;
     left: 0;
     z-index: 1;
     width: 15rem;

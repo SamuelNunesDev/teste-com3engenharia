@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light">
+<nav class="navbar fixed-top navbar-expand-md navbar-light">
     <div class="container-fluid px-4 pt-3">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">
+        <a class="navbar-brand" href="{{ route('dashboard.index') }}">
             <img src="{{ asset('assets/img/logo.png') }}" class="img" id="logo-barra-navegacao"/>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,11 +27,14 @@
 <div class="d-none d-md-block">
     <nav class="sidebar bg-color-teste1">
         <ul class="nav flex-column">
-            <li class="nav-item list border-bottom {{ $menu == 'dashboard' ? 'active' : '' }}">
-                <a class="nav-link py-4" href="{{ route('dashboard') }}"><i class="bi bi-speedometer"></i>&nbsp;&nbsp; Dashboard</a>
+            <li class="nav-item list border-bottom border-top {{ $menu == 'dashboard' ? 'active' : '' }}">
+                <a class="nav-link py-4" href="{{ route('dashboard.index') }}"><i class="bi bi-speedometer"></i>&nbsp;&nbsp; Dashboard</a>
             </li>
-            <li class="nav-item list">
-                <a class="nav-link py-4  {{ $menu == 'fotos' ? 'active' : '' }}" href=""><i class="bi bi-card-image"></i>&nbsp;&nbsp; Fotos</a>
+            <li class="nav-item list border-bottom">
+                <a class="nav-link py-4 {{ $menu == 'fotos' ? 'active' : '' }}" href="{{ route('fotos.index') }}"><i class="bi bi-card-image"></i>&nbsp;&nbsp; Fotos</a>
+            </li>
+            <li class="nav-item list border-bottom">
+                <a class="nav-link py-4" href="{{ route('logout') }}"><i class="bi bi-door-open"></i>&nbsp;&nbsp; Sair</a>
             </li>
         </ul>
     </nav>

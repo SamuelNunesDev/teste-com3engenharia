@@ -31,4 +31,8 @@ class Usuario extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = ['password'];
+
+    const CREATED_AT = 'criado_em';
+    const UPDATED_AT = 'atualizado_em';
+    const DELETED_AT = 'ativo';
 }

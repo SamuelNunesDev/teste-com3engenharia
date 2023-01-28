@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FotosController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,13 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::middleware('auth')->group(function() {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::prefix('dashboard')->name('dashboard.')->group(function() {
+        Route::get('', [DashboardController::class, 'index'])->name('index');
+    });
+    Route::prefix('fotos')->name('fotos.')->group(function() {
+        Route::get('', [FotosController::class, 'index'])->name('index');
+    });
 });
 
 Route::fallback(fn() => view('paginaInexistente'));
