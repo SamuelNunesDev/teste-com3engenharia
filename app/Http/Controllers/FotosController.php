@@ -16,9 +16,16 @@ class FotosController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.fotos');
+        $data = $request->data ?? Carbon::now();
+        $arquivos = Arquivo::doDia($data)->get()->filter(fn($arquivo) => Storage::exists($arquivo->caminho));
+        if(!($data instanceof Carbon)) {
+            $data = Carbon::createFromFormat('Y-m-d', $data);
+        }
+        $data = $data->format('d/m/Y');
+
+        return view('admin.fotos', compact('arquivos', 'data'));
     }
 
     /**
@@ -35,7 +42,7 @@ class FotosController extends Controller
             $criador = $request->criado_por;
             foreach($request->arquivos as $arquivo) {
                 $nome_arquivo = $arquivo->getClientOriginalName();
-                $caminho_arquivo = Storage::disk('public')->put('img', $arquivo);
+                $caminho_arquivo = $arquivo->store('public/img');
                 $arquivos[] = [
                     'nome' => $nome_arquivo,
                     'caminho' => $caminho_arquivo,

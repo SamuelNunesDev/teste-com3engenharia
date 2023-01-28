@@ -34,5 +34,5 @@ class Usuario extends Authenticatable
 
     const CREATED_AT = 'criado_em';
     const UPDATED_AT = 'atualizado_em';
-    const DELETED_AT = 'ativo';
+    const DELETED_AT = 'excluido_em';
 }

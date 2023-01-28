@@ -16,7 +16,7 @@
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastro-foto"><i class="bi bi-plus-circle-fill"></i> &nbsp;Adicionar Foto</button>
             </div>
         <div>
-       @include('components.galeriaFotos', ['data' => Carbon\Carbon::now()->format('d/m/Y')])
+       @include('components.galeriaFotos', ['data' => $data, 'arquivos' => $arquivos])
     </div>
 @endsection
 
