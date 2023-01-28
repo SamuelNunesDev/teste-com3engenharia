@@ -1,2 +1,5 @@
-<div>Dashboard!</div>
-{{-- TODO: Criar tela de dashboard --}}
+@extends('layout.base', ['titulo' => 'Dashboard - Tires'])
+
+@section('corpo')
+    <h1>DASHBOARD</h1>
+@endsection

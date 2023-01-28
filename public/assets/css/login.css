@@ -14,17 +14,6 @@ form.cadastro {
     margin-top: 20vh;
 }
 
-#btn-login {
-    background-color: #582058;
-    border-color: #582058;
-}
-
-#btn-login:hover {
-    transition-duration: 0.4s;
-    border-color: #F1511B;
-    background-color: #F1511B;
-}
-
 #img-logo {
     width: 245px;
 }

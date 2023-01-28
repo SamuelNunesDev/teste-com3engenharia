@@ -58,4 +58,16 @@ class LoginController extends Controller
             return back()->with('erro', 'Houve um erro ao tentar criar o usuário, contate o administrador do sistema. Erro: '.$e->getMessage());
         }
     }
+
+    /**
+     * Faz o logout do usuário.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('login');
+    }
 }

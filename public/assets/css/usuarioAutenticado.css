@@ -1,0 +1,58 @@
+#logo-barra-navegacao {
+    width: 180px;
+}
+
+@media screen and (min-width: 770px) {
+    #btn-usuario {
+        position: absolute;
+        right: 60px!important;
+        top: 25px!important;
+    }
+
+    .main {
+        padding-left: 15rem!important;
+    }
+}
+
+.sidebar {
+    position: fixed;
+    bottom: 0;
+    top: 6rem;
+    left: 0;
+    z-index: 1;
+    width: 15rem;
+    padding-top: 40px;
+}
+
+.sidebar .active a {
+    background-color: #F1511B!important;
+}
+
+.sidebar .nav-link {
+    color: #fff;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #F1511B!important;
+}
+
+.sidebar .active {
+    color: #007bff;
+}
+
+main {
+    margin-left: auto;
+}
+
+.sidebar-heading {
+    margin-top: 25px;
+    font-size: 0.9em;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}

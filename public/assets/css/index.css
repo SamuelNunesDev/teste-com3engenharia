@@ -1,0 +1,30 @@
+.bg-color-teste1 {
+    background-color: #582058!important;
+}
+
+.border-color-teste1 {
+    border-color: #582058!important;
+}
+
+.bg-color-teste2 {
+    background-color: #F1511B!important;
+}
+
+.border-color-teste2 {
+    background-color: #F1511B!important;
+}
+
+.btn-login {
+    background-color: #582058!important;
+    border-color: #582058!important;
+}
+
+.btn-login:hover {
+    transition-duration: 0.4s;
+    background-color: #F1511B!important;
+    border-color: #F1511B!important;
+}
+
+.navbar-light {
+    background-color: rgb(245, 245, 245)!important;
+}

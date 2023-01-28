@@ -43,7 +43,7 @@
                 <a class="text-decoration-none" href={{ route('cadastro.usuario') }}>Criar Nova Conta</a>
             </div>
         </div>
-        <button type="submit" id="btn-login" class="btn btn-primary w-100 py-2 mt-3">Entrar</button>
+        <button type="submit" class="btn btn-primary btn-login w-100 py-2 mt-3">Entrar</button>
     </form>
 @else
     <form class="px-5 cadastro" action="{{ route('salvar.usuario') }}" method="post">
@@ -112,7 +112,7 @@
                 <a class="text-decoration-none" href={{ route('login') }}>Já tenho uma conta</a>
             </div>
         </div>
-        <button type="submit" id="btn-login" class="btn btn-primary w-100 py-2 mt-3">Entrar</button>
+        <button type="submit" class="btn btn-primary btn-login w-100 py-2 mt-3">Entrar</button>
     </form>
 @endif
 
