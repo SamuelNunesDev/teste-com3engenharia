@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FotosController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function() {
         Route::get('baixar/{arquivo}', [FotosController::class, 'baixar'])->name('baixar');
         Route::put('update', [FotosController::class, 'update'])->name('update');
         Route::get('delete/{arquivo}', [FotosController::class, 'destroy'])->name('destroy');
+    });
+    Route::prefix('usuario')->name('usuario.')->group(function() {
+        Route::get('', [UsuarioController::class, 'index'])->name('index');
+        Route::put('', [UsuarioController::class, 'update'])->name('update');
+        Route::delete('{usuario}', [UsuarioController::class, 'destroy'])->name('delete');
     });
 });
 

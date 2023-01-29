@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         try {
             if(Auth::attempt($request->only('email', 'password'))) {
-                return redirect('dashboard');
+                return redirect('dashboard')->with('sucesso', 'Login efetuado com sucesso.');
             }
             return back()->with('erro', 'Usuário ou senha incorretos.');
         } catch(Exception $e) {
@@ -53,7 +53,7 @@ class LoginController extends Controller
             Usuario::create($dados);
             Auth::attempt($request->only('email', 'password'));
 
-            return redirect('dashboard'); 
+            return redirect('dashboard')->with('sucesso', 'Usuário cadastrado com sucesso. Você está logado.');; 
         } catch(Exception$e) {
             return back()->with('erro', 'Houve um erro ao tentar criar o usuário, contate o administrador do sistema. Erro: '.$e->getMessage());
         }
@@ -68,6 +68,6 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return redirect('login');
+        return redirect('login')->with('sucesso', 'Logout efetuado com sucesso.');
     }
 }

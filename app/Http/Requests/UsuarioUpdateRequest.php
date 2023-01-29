@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ConfirmacaoSenhaRule;
-use App\Rules\EmailUnicoRule;
+use App\Rules\AtualizarEmailUsuarioRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginSalvarUsuarioRequest extends FormRequest
+class UsuarioUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +25,15 @@ class LoginSalvarUsuarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'string|required',
-            'email' => ['required', 'email', new EmailUnicoRule()],
-            'password' => 'required|min:8',
-            'confirmacao_senha' => new ConfirmacaoSenhaRule($this->request->get('password'))
+            'email' => ['email', new AtualizarEmailUsuarioRule()],
+            'nome' => 'max:255',
+            'senha_atual' => 'string|min:8',
+            'nova_senha' => 'string|min:8',
+            'senha_confirmar' => 'string|min:8'
         ];
     }
 
-    /**
+     /**
      * Define as mensagens em caso de erro.
      * 
      * @return array
@@ -41,9 +41,9 @@ class LoginSalvarUsuarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'O campo :attribute é obrigatório.',
             'email' => 'O campo :attribute deve ser do tipo email.',
             'min' => 'O campo :attribute deve ter no mínimo 8 caracteres.',
+            'max' => 'O campo :attribute deve ter no máximo 255 caracteres.',
             'unique' => 'Já existe um usuário cadastrado com o email informado.',
             'string' => 'O campo :attribute deve ser do tipo texto.'
         ];

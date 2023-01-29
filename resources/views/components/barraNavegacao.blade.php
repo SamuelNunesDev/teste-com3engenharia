@@ -34,6 +34,9 @@
                 <a class="nav-link py-4 {{ $menu == 'fotos' ? 'active' : '' }}" href="{{ route('fotos.index') }}"><i class="bi bi-card-image"></i>&nbsp;&nbsp; Fotos</a>
             </li>
             <li class="nav-item list border-bottom">
+                <a class="nav-link py-4" href="{{ route('usuario.index') }}"><i class="bi bi-person-circle"></i>&nbsp;&nbsp; Meu Perfil</a>
+            </li>
+            <li class="nav-item list border-bottom">
                 <a class="nav-link py-4" href="{{ route('logout') }}"><i class="bi bi-door-open"></i>&nbsp;&nbsp; Sair</a>
             </li>
         </ul>

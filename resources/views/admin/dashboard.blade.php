@@ -42,8 +42,8 @@
                             <th width="2%">Código</th>
                             <th width="30%">Nome</th>
                             <th width="10%">Url Pública</th>
-                            <th width="20%">Criado Por</th>
-                            <th>Criado Em</th>
+                            <th>Criado Por</th>
+                            <th width="15%">Criado Em</th>
                             <th width="10%">Ações</th>
                         </tr>
                     </thead>
@@ -57,11 +57,11 @@
                                 <td>{{ \Carbon\Carbon::parse($arquivo->criado_em)->format('d/m/Y H:i:s') }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('fotos.baixar', ['arquivo' => $arquivo->id]) }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar"><i class="bi bi-download"></i></a>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar-foto" data-nome-arquivo="{{ $arquivo->nome }}" data-id-arquivo="{{ $arquivo->id }}">
+                                        <a href="{{ route('fotos.baixar', ['arquivo' => $arquivo->id]) }}" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar"><i class="bi bi-download"></i></a>
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editar-foto" data-nome-arquivo="{{ $arquivo->nome }}" data-id-arquivo="{{ $arquivo->id }}">
                                             <i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-excluir-arquivo" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir" data-id-arquivo="{{ $arquivo->id }}"><i class="bi bi-trash"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm btn-excluir-arquivo" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir" data-id-arquivo="{{ $arquivo->id }}"><i class="bi bi-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -162,10 +162,12 @@
 
             $(document).on('click', '.btn-excluir-arquivo', function() {
                 Swal.fire({
-                    title: 'Voce tem certeza que quer excluir este arquivo?',
+                    title: 'Voce tem certeza?',
+                    text: 'Esta ação é irreversível, após a exclusão de um arquivo não é possível recuperá-lo.',
                     showCancelButton: true,
                     confirmButtonText: 'Sim, excluir.',
                     cancelButtonText: `Não, cancelar.`,
+                    icon: 'question'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = `{{ url('fotos/delete') }}/${$(this).attr('data-id-arquivo')}`
