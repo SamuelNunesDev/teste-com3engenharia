@@ -42,4 +42,16 @@ class Arquivo extends Model
     {
         return url(Storage::url($this->caminho));
     }
+
+    /**
+     * Filtra arquivos por mês e ano.
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Carbon\Carbon $data
+     * @return \Illuminate\Database\Eloquent\Builder $query
+     */
+    public function scopePorMesAno($query, $data)
+    {
+        return $query->whereYear('criado_em', $data->format('Y'))->whereMonth('criado_em', $data->format('m'));
+    }
 }

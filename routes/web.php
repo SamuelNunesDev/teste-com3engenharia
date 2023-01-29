@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function() {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::prefix('dashboard')->name('dashboard.')->group(function() {
         Route::get('', [DashboardController::class, 'index'])->name('index');
+        Route::get('semanal', [DashboardController::class, 'semanal'])->name('semanal');
     });
     Route::prefix('fotos')->name('fotos.')->group(function() {
         Route::get('', [FotosController::class, 'index'])->name('index');
