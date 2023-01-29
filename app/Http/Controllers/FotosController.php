@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateFotoRequest;
+use App\Http\Requests\FotosUpdateRequest;
 use App\Models\Arquivo;
 use Carbon\Carbon;
 use Exception;
@@ -60,24 +60,25 @@ class FotosController extends Controller
     /**
      * Baixa um arquivo armazenado no servidor.
      * 
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse|\Illuminate\Contracts\View\View
+     * @param \App\Models\Arquivo $arquivo
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse|\Illuminate\Http\RedirectResponse
      */
     public function baixar(Arquivo $arquivo)
     {
         try {
             return Storage::download($arquivo->caminho, $arquivo->nome);
         } catch(Exception $e) {
-            return view('paginaInexistente');
+            return back()->with('erro', 'Houve um erro ao tentar baixar o arquivo. Erro: '.$e->getMessage());
         }
     }
 
     /**
      * Atualiza o registro de um arquivo no banco.
      * 
-     * @param \App\Http\Requests\UpdateFotoRequest $request
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @param \App\Http\Requests\FotosUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateFotoRequest $request)
+    public function update(FotosUpdateRequest $request)
     {
         try {
             $arquivo = Arquivo::findOrFail($request->id);
@@ -85,9 +86,29 @@ class FotosController extends Controller
 
             return back()->with('sucesso', 'Nome do arquivo alterado com sucesso.');
         } catch(ModelNotFoundException $e) {
-            return new Response(['mensagem' => 'Houve um erro ao tentar atualizar o arquivo. Erro: Arquivo não encontrado ou inexistente.']); 
+            return back()->with('erro', 'Houve um erro ao tentar atualizar o arquivo. Erro: Arquivo não encontrado ou inexistente.');
         } catch(Exception $e) {
-            return new Response(['mensagem' => 'Houve um erro ao tentar atualizar o arquivo. Erro: '.$e->getMessage()]); 
+            return back()->with('erro', 'Houve um erro ao tentar atualizar o arquivo. Erro: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Exclui um arquivo.
+     * 
+     * @param \App\Models\Arquivo $arquivo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Arquivo $arquivo)
+    {
+        try {
+            Storage::delete($arquivo->caminho);
+            $arquivo->delete();
+
+            return back()->with('sucesso', 'Arquivo excluído com sucesso.');
+        } catch(ModelNotFoundException $e) {
+            return back()->with('erro', 'Houve um erro ao tentar excluir o arquivo. Erro: Arquivo não encontrado ou inexistente.');
+        } catch(Exception $e) {
+            return back()->with('erro', 'Houve um erro ao tentar excluir o arquivo. Erro: '.$e->getMessage());
         }
     }
 }

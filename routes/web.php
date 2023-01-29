@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function() {
         Route::get('', [FotosController::class, 'index'])->name('index');
         Route::get('baixar/{arquivo}', [FotosController::class, 'baixar'])->name('baixar');
         Route::put('update', [FotosController::class, 'update'])->name('update');
+        Route::get('delete/{arquivo}', [FotosController::class, 'destroy'])->name('destroy');
     });
 });
 

@@ -14,6 +14,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if(Session::has('erro'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> &nbsp;<strong>Erro!</strong> {{ Session::get('erro') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="border rounded shadow p-3 mt-3">
             <h2 class="h4 mb-3">&nbsp; Upload de Arquivos</h2>
             <ul class="nav nav-tabs">
@@ -55,7 +61,7 @@
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar-foto" data-nome-arquivo="{{ $arquivo->nome }}" data-id-arquivo="{{ $arquivo->id }}">
                                             <i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"><i class="bi bi-trash"></i></button>
+                                        <button type="button" class="btn btn-danger btn-excluir-arquivo" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir" data-id-arquivo="{{ $arquivo->id }}"><i class="bi bi-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -152,6 +158,19 @@
 
             $('#btn-editar-foto').on('click', function() {
                 $('#formulario-editar-foto').submit()
+            })
+
+            $(document).on('click', '.btn-excluir-arquivo', function() {
+                Swal.fire({
+                    title: 'Voce tem certeza que quer excluir este arquivo?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sim, excluir.',
+                    cancelButtonText: `Não, cancelar.`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = `{{ url('fotos/delete') }}/${$(this).attr('data-id-arquivo')}`
+                    }
+                })
             })
         })
     </script>
