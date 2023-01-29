@@ -44,7 +44,7 @@
                                 <td>{{ \Carbon\Carbon::parse($arquivo->criado_em)->format('d/m/Y H:i:s') }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="#" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar"><i class="bi bi-download"></i></a>
+                                        <a href="{{ route('fotos.baixar', ['arquivo' => $arquivo->id]) }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar"><i class="bi bi-download"></i></a>
                                         <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square"></i></button>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"><i class="bi bi-trash"></i></button>
                                     </div>

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function() {
     });
     Route::prefix('fotos')->name('fotos.')->group(function() {
         Route::get('', [FotosController::class, 'index'])->name('index');
+        Route::get('baixar/{arquivo}', [FotosController::class, 'baixar'])->name('baixar');
     });
 });
 

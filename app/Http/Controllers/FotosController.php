@@ -54,4 +54,14 @@ class FotosController extends Controller
             return new Response(['mensagem' => 'Houve um erro ao tentar fazer o upload das imagens. Erro:'.$e->getMessage()]);
         }
     }
+
+    /**
+     * Baixa um arquivo armazenado no servidor.
+     * 
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function baixar(Arquivo $arquivo)
+    {
+        return Storage::download($arquivo->caminho, $arquivo->nome);
+    }
 }
