@@ -54,4 +54,22 @@ class Arquivo extends Model
     {
         return $query->whereYear('criado_em', $data->format('Y'))->whereMonth('criado_em', $data->format('m'));
     }
+
+     /**
+     * Filtra arquivos por um intervalo de tempo específico.
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Carbon\Carbon $data_inicial
+     * @param \Carbon\Carbon $data_final
+     * @return \Illuminate\Database\Eloquent\Builder $query
+     */
+    public function scopePorIntervaloDeTempo($query, $data_inicial, $data_final)
+    {
+        return $query->whereDate('criado_em', '>=', $data_inicial)->whereDate('criado_em', '<=', $data_final);
+    }
+
+    public function criador()
+    {
+        return $this->belongsTo(Usuario::class, 'criado_por', 'id');
+    }
 }

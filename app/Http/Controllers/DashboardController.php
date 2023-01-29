@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Arquivo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -21,8 +22,9 @@ class DashboardController extends Controller
             $data = $data->subMonth();
         }
         $arquivos = array_reverse($arquivos, true);
+        $todos_arquivos = Arquivo::with('criador')->porIntervaloDeTempo($data, Carbon::now())->get();
 
-        return view('admin.dashboard', compact('arquivos'));
+        return view('admin.dashboard', compact('arquivos', 'todos_arquivos'));
     }
 
     /**
@@ -42,6 +44,8 @@ class DashboardController extends Controller
             $data->addDay();
             $data_passada->addDay();
         }
-        return view('admin.dashboard', compact('arquivos', 'arquivos_semana_anterior'));
+        $todos_arquivos = Arquivo::with('criador')->porIntervaloDeTempo(Carbon::now(), $data)->get();
+
+        return view('admin.dashboard', compact('arquivos', 'arquivos_semana_anterior', 'todos_arquivos'));
     }
 }
