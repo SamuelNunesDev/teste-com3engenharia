@@ -32,6 +32,11 @@ class LoginSalvarUsuarioRequest extends FormRequest
         ];
     }
 
+    /**
+     * Define as mensagens em caso de erro.
+     * 
+     * @return array
+     */
     public function messages()
     {
         return [

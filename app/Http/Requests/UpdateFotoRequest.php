@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FotosStoreRequest extends FormRequest
+class UpdateFotoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class FotosStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'arquivos' => 'array|required',
-            'criado_por' => 'int|required'
+            'id' => 'required|integer',
+            'nome' => 'required|max:255'
         ];
     }
 
@@ -37,9 +37,9 @@ class FotosStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'array' => 'O campo :attribute deve ser do tipo vetor de :attribute.',
             'required' => 'O campo :attribute é obrigatório',
-            'int' => 'O campo :attribute deve ser do tipo numeral inteiro'
+            'integer' => 'O campo :attribute deve ser do tipo numeral inteiro',
+            'max' => 'O campo :attribute deve ter no máximo 255 caracteres'
         ];
     }
 }

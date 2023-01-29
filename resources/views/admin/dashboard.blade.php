@@ -5,8 +5,15 @@
 @endsection
 
 @section('corpo')
+    @include('components.editarFoto')
     <div class="container pb-5">
         <h1 class="text-center mt-1"><i class="bi bi-speedometer"></i>&nbsp; Dashboard</h1>
+        @if(Session::has('sucesso'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> &nbsp;<strong>Sucesso!</strong> {{ Session::get('sucesso') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="border rounded shadow p-3 mt-3">
             <h2 class="h4 mb-3">&nbsp; Upload de Arquivos</h2>
             <ul class="nav nav-tabs">
@@ -45,7 +52,9 @@
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('fotos.baixar', ['arquivo' => $arquivo->id]) }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar"><i class="bi bi-download"></i></a>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square"></i></button>
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar-foto" data-nome-arquivo="{{ $arquivo->nome }}" data-id-arquivo="{{ $arquivo->id }}">
+                                            <i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
+                                        </button>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"><i class="bi bi-trash"></i></button>
                                     </div>
                                 </td>
@@ -121,8 +130,8 @@
                 language: {
                     emptyTable: "Nenhum arquivo carregado.",
                     info: "Mostrando _START_ de _END_ no total de _TOTAL_ arquivos.",
-                    infoEmpty:      "Mostrando 0 de 0 no total 0 arquivos.",
-                    infoFiltered:   "(filtrado um total de _MAX_ arquivos).",
+                    infoEmpty:      "Mostrando 0 de 0 no total 0 arquivo(s).",
+                    infoFiltered:   "(filtrado um total de _MAX_ arquivo(s)).",
                     lengthMenu:     "Mostrando _MENU_ arquivos.",
                     loadingRecords: "Carregando...",
                     search:         "Pesquisar:",
@@ -135,6 +144,15 @@
                     }
                 }
             });
+
+            $(document).on('click', '[data-bs-target="#editar-foto"]', function() {
+                $('#nome-arquivo').val($(this).attr('data-nome-arquivo'))
+                $('#id-arquivo').val($(this).attr('data-id-arquivo'))
+            })
+
+            $('#btn-editar-foto').on('click', function() {
+                $('#formulario-editar-foto').submit()
+            })
         })
     </script>
 @endsection

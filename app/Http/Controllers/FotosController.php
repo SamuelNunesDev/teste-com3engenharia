@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateFotoRequest;
 use App\Models\Arquivo;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
@@ -58,10 +60,34 @@ class FotosController extends Controller
     /**
      * Baixa um arquivo armazenado no servidor.
      * 
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse|\Illuminate\Contracts\View\View
      */
     public function baixar(Arquivo $arquivo)
     {
-        return Storage::download($arquivo->caminho, $arquivo->nome);
+        try {
+            return Storage::download($arquivo->caminho, $arquivo->nome);
+        } catch(Exception $e) {
+            return view('paginaInexistente');
+        }
+    }
+
+    /**
+     * Atualiza o registro de um arquivo no banco.
+     * 
+     * @param \App\Http\Requests\UpdateFotoRequest $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function update(UpdateFotoRequest $request)
+    {
+        try {
+            $arquivo = Arquivo::findOrFail($request->id);
+            $arquivo->update($request->only('nome'));
+
+            return back()->with('sucesso', 'Nome do arquivo alterado com sucesso.');
+        } catch(ModelNotFoundException $e) {
+            return new Response(['mensagem' => 'Houve um erro ao tentar atualizar o arquivo. Erro: Arquivo não encontrado ou inexistente.']); 
+        } catch(Exception $e) {
+            return new Response(['mensagem' => 'Houve um erro ao tentar atualizar o arquivo. Erro: '.$e->getMessage()]); 
+        }
     }
 }
